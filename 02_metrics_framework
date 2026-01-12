@@ -1,0 +1,21 @@
+# Metrics Framework
+
+## North Star Metric
+Monthly Active Businesses with Healthy Cashflow  
+(Positive net cashflow for 3 consecutive months)
+
+## Input Metrics
+- Number of financial transactions ingested
+- Weekly active users
+- Number of data sources connected
+
+## Output Metrics
+- Cashflow forecast accuracy
+- Monthly revenue growth
+- Customer churn rate
+
+## Product Funnel
+1. Activation – Business connects bank + accounting tool
+2. Engagement – Weekly dashboard usage
+3. Retention – Active for 3+ months
+4. Monetization – Upgrade to premium forecasting
