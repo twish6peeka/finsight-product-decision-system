@@ -1,6 +1,7 @@
 import pandas as pd
-import random
+import numpy as np
 from datetime import datetime, timedelta
+import os
 
 random.seed(42)
 
@@ -114,12 +115,17 @@ for b in businesses:
 
 df_subs = pd.DataFrame(subscriptions)
 
-# -------------------------
-# EXPORT DATA
-# -------------------------
-df_business.to_csv("dim_business.csv", index=False)
-df_users.to_csv("dim_user.csv", index=False)
-df_events.to_csv("fact_product_events.csv", index=False)
-df_transactions.to_csv("fact_transactions.csv", index=False)
-df_subs.to_csv("fact_subscription.csv", index=False)
+# -----------------------------
+# Export data for Power BI
+# -----------------------------
+
+output_dir = "05_data_exports"
+os.makedirs(output_dir, exist_ok=True)
+
+dim_business.to_csv(f"{output_dir}/dim_business.csv", index=False)
+dim_date.to_csv(f"{output_dir}/dim_date.csv", index=False)
+fact_events.to_csv(f"{output_dir}/fact_events.csv", index=False)
+fact_subscriptions.to_csv(f"{output_dir}/fact_subscriptions.csv", index=False)
+
+print("CSV files exported to 05_data_exports/")
 
