@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
+import random
 from datetime import datetime, timedelta
 import os
-
-random.seed(42)
 
 # -------------------------
 # CONFIG
 # -------------------------
+random.seed(42)
 NUM_BUSINESSES = 120
 START_DATE = datetime(2023, 1, 1)
 
@@ -15,6 +15,12 @@ industries = ["Retail", "SaaS", "Healthcare", "Manufacturing"]
 countries = ["Australia", "India", "US"]
 plans = ["Free", "Standard", "Premium"]
 events = ["login", "dashboard_view", "forecast_used"]
+
+# -------------------------
+# Ensure export folder exists
+# -------------------------
+output_dir = "05_data_exports"
+os.makedirs(output_dir, exist_ok=True)
 
 # -------------------------
 # DIM_BUSINESS
@@ -99,7 +105,7 @@ for b in businesses:
 df_transactions = pd.DataFrame(transactions)
 
 # -------------------------
-# FACT_SUBSCRIPTION
+# FACT_SUBSCRIPTIONS
 # -------------------------
 subscriptions = []
 
@@ -113,19 +119,31 @@ for b in businesses:
         "end_date": None
     })
 
-df_subs = pd.DataFrame(subscriptions)
+df_subscriptions = pd.DataFrame(subscriptions)
+
+# -------------------------
+# DIM_DATE
+# -------------------------
+start_date = START_DATE
+end_date = datetime.today()
+date_range = pd.date_range(start=start_date, end=end_date)
+
+df_date = pd.DataFrame({
+    "date": date_range,
+    "year": date_range.year,
+    "month": date_range.month,
+    "day": date_range.day,
+    "weekday": date_range.weekday
+})
 
 # -----------------------------
 # Export data for Power BI
 # -----------------------------
-
-output_dir = "05_data_exports"
-os.makedirs(output_dir, exist_ok=True)
-
-dim_business.to_csv(f"{output_dir}/dim_business.csv", index=False)
-dim_date.to_csv(f"{output_dir}/dim_date.csv", index=False)
-fact_events.to_csv(f"{output_dir}/fact_events.csv", index=False)
-fact_subscriptions.to_csv(f"{output_dir}/fact_subscriptions.csv", index=False)
+df_business.to_csv(f"{output_dir}/dim_business.csv", index=False)
+df_date.to_csv(f"{output_dir}/dim_date.csv", index=False)
+df_events.to_csv(f"{output_dir}/fact_events.csv", index=False)
+df_transactions.to_csv(f"{output_dir}/fact_transactions.csv", index=False)
+df_subscriptions.to_csv(f"{output_dir}/fact_subscriptions.csv", index=False)
 
 print("CSV files exported to 05_data_exports/")
 
