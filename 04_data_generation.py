@@ -4,146 +4,165 @@ import random
 from datetime import datetime, timedelta
 import os
 
-# -------------------------
-# CONFIG
-# -------------------------
 random.seed(42)
+np.random.seed(42)
+
+START_DATE = datetime(2024, 1, 1)
+END_DATE = datetime(2026, 12, 31)
 NUM_BUSINESSES = 120
-START_DATE = datetime(2023, 1, 1)
 
 industries = ["Retail", "SaaS", "Healthcare", "Manufacturing"]
 countries = ["Australia", "India", "US"]
 plans = ["Free", "Standard", "Premium"]
-events = ["login", "dashboard_view", "forecast_used"]
+plan_price = {"Free": 0, "Standard": 49, "Premium": 99}
 
-# -------------------------
-# Ensure export folder exists
-# -------------------------
-output_dir = "05_data_exports"
+# =========================
+# QUARTER BEHAVIOR CONFIG
+# =========================
+quarter_rules = {
+    1: {"usage": 0.8, "churn": 0.10, "revenue": 0.9},
+    2: {"usage": 1.2, "churn": 0.08, "revenue": 1.1},
+    3: {"usage": 0.5, "churn": 0.30, "revenue": 0.8},
+    4: {"usage": 1.4, "churn": 0.15, "revenue": 1.3},
+}
+
+def get_quarter(dt):
+    return (dt.month - 1) // 3 + 1
+
+output_dir = "quarter_aware_data"
 os.makedirs(output_dir, exist_ok=True)
 
-# -------------------------
-# DIM_BUSINESS
-# -------------------------
-businesses = []
+# =====================
+# DIM_DATE
+# =====================
+dates = pd.date_range(START_DATE, END_DATE)
+df_date = pd.DataFrame({
+    "date": dates,
+    "year": dates.year,
+    "quarter": "Q" + dates.to_series().dt.quarter.astype(str),
+    "month": dates.month
+})
 
+# =====================
+# DIM_BUSINESS
+# =====================
+businesses = []
 for i in range(1, NUM_BUSINESSES + 1):
-    signup_date = START_DATE + timedelta(days=random.randint(0, 400))
-    plan = random.choices(plans, weights=[0.4, 0.4, 0.2])[0]
+    signup = START_DATE + timedelta(days=random.randint(0, 365))
+    plan = random.choices(plans, weights=[0.4, 0.35, 0.25])[0]
 
     businesses.append({
         "business_id": i,
         "business_name": f"Business_{i}",
         "industry": random.choice(industries),
         "country": random.choice(countries),
-        "company_size": random.choice(["Small", "Medium"]),
-        "signup_date": signup_date.date(),
+        "signup_date": signup,
         "plan_type": plan
     })
 
 df_business = pd.DataFrame(businesses)
 
-# -------------------------
-# DIM_USER
-# -------------------------
-users = []
-user_id = 1
+# =====================
+# FACT_SUBSCRIPTIONS (QUARTER-BASED CHURN)
+# =====================
+subs = []
+for _, b in df_business.iterrows():
+    start = b.signup_date
+    plan = b.plan_type
+    end = None
 
-for b in businesses:
-    num_users = random.randint(1, 4)
-    for _ in range(num_users):
-        users.append({
-            "user_id": user_id,
-            "business_id": b["business_id"],
-            "role": random.choice(["Founder", "Finance Manager"]),
-            "created_at": b["signup_date"]
-        })
-        user_id += 1
+    if plan != "Free":
+        q = get_quarter(start)
+        churn_chance = quarter_rules[q]["churn"]
+        if random.random() < churn_chance:
+            churn_months = random.randint(3, 12)
+            end = start + pd.DateOffset(months=churn_months)
+            if end > END_DATE:
+                end = None
 
-df_users = pd.DataFrame(users)
-
-# -------------------------
-# FACT_PRODUCT_EVENTS
-# -------------------------
-events_data = []
-
-for user in users:
-    active_days = random.randint(30, 300)
-    for day in range(active_days):
-        if random.random() < 0.3:
-            event_date = datetime.strptime(str(user["created_at"]), "%Y-%m-%d") + timedelta(days=day)
-            events_data.append({
-                "business_id": user["business_id"],
-                "user_id": user["user_id"],
-                "event_name": random.choice(events),
-                "event_timestamp": event_date
-            })
-
-df_events = pd.DataFrame(events_data)
-
-# -------------------------
-# FACT_TRANSACTIONS
-# -------------------------
-transactions = []
-
-for b in businesses:
-    months_active = random.randint(3, 18)
-    for m in range(months_active):
-        transactions.append({
-            "business_id": b["business_id"],
-            "amount": random.randint(5000, 50000),
-            "transaction_type": "inflow",
-            "transaction_date": (b["signup_date"] + timedelta(days=30*m))
-        })
-        transactions.append({
-            "business_id": b["business_id"],
-            "amount": -random.randint(2000, 30000),
-            "transaction_type": "outflow",
-            "transaction_date": (b["signup_date"] + timedelta(days=30*m))
-        })
-
-df_transactions = pd.DataFrame(transactions)
-
-# -------------------------
-# FACT_SUBSCRIPTIONS
-# -------------------------
-subscriptions = []
-
-for b in businesses:
-    price = 0 if b["plan_type"] == "Free" else (49 if b["plan_type"] == "Standard" else 99)
-    subscriptions.append({
-        "business_id": b["business_id"],
-        "plan_type": b["plan_type"],
-        "monthly_price": price,
-        "start_date": b["signup_date"],
-        "end_date": None
+    subs.append({
+        "business_id": b.business_id,
+        "plan_type": plan,
+        "monthly_price": plan_price[plan],
+        "start_date": start,
+        "end_date": end
     })
 
-df_subscriptions = pd.DataFrame(subscriptions)
+df_subs = pd.DataFrame(subs)
 
-# -------------------------
-# DIM_DATE
-# -------------------------
-start_date = START_DATE
-end_date = datetime.today()
-date_range = pd.date_range(start=start_date, end=end_date)
+# =====================
+# FACT_EVENTS (USAGE VARIES BY QUARTER)
+# =====================
+events = []
 
-df_date = pd.DataFrame({
-    "date": date_range,
-    "year": date_range.year,
-    "month": date_range.month,
-    "day": date_range.day,
-    "weekday": date_range.weekday
-})
+for _, sub in df_subs.iterrows():
+    start = sub.start_date
+    end = sub.end_date or END_DATE
 
-# -----------------------------
-# Export data for Power BI
-# -----------------------------
+    if random.random() < 0.85:  # activation probability
+        current = start + timedelta(days=random.randint(1, 10))
+
+        while current < end:
+            q = get_quarter(current)
+            usage_factor = quarter_rules[q]["usage"]
+
+            if random.random() < 0.4 * usage_factor:
+                events.append({"business_id": sub.business_id, "event_name": "login", "event_timestamp": current})
+
+            if random.random() < 0.3 * usage_factor:
+                events.append({"business_id": sub.business_id, "event_name": "dashboard_view", "event_timestamp": current})
+
+            if random.random() < 0.2 * usage_factor:
+                events.append({"business_id": sub.business_id, "event_name": "forecast_used", "event_timestamp": current})
+
+            current += timedelta(days=random.randint(4, 10))
+
+df_events = pd.DataFrame(events)
+
+# =====================
+# FACT_TRANSACTIONS (REVENUE BY QUARTER)
+# =====================
+transactions = []
+
+for _, sub in df_subs.iterrows():
+    if sub.monthly_price == 0:
+        continue
+
+    current = sub.start_date
+    end = sub.end_date or END_DATE
+
+    while current < end:
+        q = get_quarter(current)
+        rev_factor = quarter_rules[q]["revenue"]
+
+        inflow = int(random.randint(8000, 40000) * rev_factor)
+        outflow = -int(random.randint(3000, 25000) * rev_factor)
+
+        transactions.append({
+            "business_id": sub.business_id,
+            "amount": inflow,
+            "transaction_type": "inflow",
+            "transaction_date": current
+        })
+        transactions.append({
+            "business_id": sub.business_id,
+            "amount": outflow,
+            "transaction_type": "outflow",
+            "transaction_date": current
+        })
+
+        current += pd.DateOffset(months=1)
+
+df_txn = pd.DataFrame(transactions)
+
+# =====================
+# EXPORT
+# =====================
 df_business.to_csv(f"{output_dir}/dim_business.csv", index=False)
 df_date.to_csv(f"{output_dir}/dim_date.csv", index=False)
+df_subs.to_csv(f"{output_dir}/fact_subscriptions.csv", index=False)
 df_events.to_csv(f"{output_dir}/fact_events.csv", index=False)
-df_transactions.to_csv(f"{output_dir}/fact_transactions.csv", index=False)
-df_subscriptions.to_csv(f"{output_dir}/fact_subscriptions.csv", index=False)
+df_txn.to_csv(f"{output_dir}/fact_transactions.csv", index=False)
 
-print("CSV files exported to 05_data_exports/")
+print("QUARTER-DIFFERENT DATA GENERATED (2024–2026)")
 
