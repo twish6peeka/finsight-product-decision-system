@@ -88,24 +88,25 @@ Each dashboard is intentionally scoped to avoid metric overlap and support a spe
 ---
 
 ## Repository structure
-01_business_overview.md        # Business model, ICP, goals
-02_metrics_framework/          # North Star & KPI definitions
-03_data_model.sql              # Star schema & table design
-04_data_generation.py          # Synthetic SaaS data generation (Python)
-05_sql_*.sql                   # Analytics queries (activation, churn, retention, revenue)
-07_decisions_and_execution.md  # Decision framework
-08_insights/                   # Decision simulations & insights
-README.md
+* 01_business_overview.md        # Business model, ICP, goals
+* 02_metrics_framework/          # North Star & KPI definitions
+* 03_data_model.sql              # Star schema & table design
+* 04_data_generation.py          # Synthetic SaaS data generation (Python)
+* 05_sql_*.sql                   # Analytics queries (activation, churn, retention, revenue)
+* 06_dashboards                  # Screenshots of the dashboard
+* 07_decisions_and_execution.md  # Decision framework
+* 08_insights/                   # Decision simulations & insights
+* README.md
 
 
 ---
 
-##How to use this project
+## How to use this project
 
-Review the business context to understand why metrics were chosen
-Explore SQL queries to see how activation, churn, and revenue are modeled
-Use dashboards to simulate real SaaS decisions
-Refer to /08_insights for example decision narratives
+* Review the business context to understand why metrics were chosen
+* Explore SQL queries to see how activation, churn, and revenue are modeled
+* Use dashboards to simulate real SaaS decisions
+* Refer to /08_insights for example decision narratives
 
 ---
 
