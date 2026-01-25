@@ -25,5 +25,41 @@ This project includes three Power BI dashboards designed for different stakehold
 - Executive Overview KPIs
 - MRR Bridge (Growth vs Churn)
 - Revenue Composition by Segment
+
 ![Executive Dashboard Overview](dashboard_executive.png)
+
+
+### 2️⃣ Product Dashboard — Activation & Engagement
+**Persona:** Product Manager  
+**Purpose:** Understand whether users reach value and which features drive retention.
+
+**Key Questions Answered:**
+- Where do users drop off?
+- How fast do users reach activation?
+- Which features matter?
+
+📷 Screenshots:
+- Activation Funnel
+- Feature Adoption
+- Time to Value Distribution
+
+![Product Dashboard Overview](dashboard_product.png)
+
+
+### 3️⃣ Operations Dashboard — Retention & Risk
+**Persona:** Customer Success / Operations  
+**Purpose:** Identify churn risk early and prioritize intervention.
+
+**Key Questions Answered:**
+- Which accounts are at risk?
+- How much revenue is endangered?
+- Which segments need attention?
+
+📷 Screenshots:
+- At-Risk MRR by Industry
+- Retention Trend
+- Risk Action Table
+
+![Operations Dashboard Overview](dashboard_operations.png)
+
 
