@@ -109,12 +109,13 @@ FinSight models a complete SaaS analytics and decision pipeline that:
 
 ---
 
-##How to use this project
+## How to use this project
 - **Weekly executive review:** Portfolio health and revenue risk monitoring
 - **Product sprint planning:** Activation bottleneck diagnosis
 - **CS risk review:** Proactive churn prevention and outreach prioritization
 
 ---
+
 
 ## Repository Structure
                 
@@ -129,7 +130,6 @@ FinSight models a complete SaaS analytics and decision pipeline that:
 08_insights.md                # Turnaround simulation & findings
 README.md                     # Project overview
 
----
 
 
 > This project was built end-to-end from scratch, simulating a real-world SaaS analytics workflow.
