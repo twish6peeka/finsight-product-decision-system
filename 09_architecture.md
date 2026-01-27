@@ -3,6 +3,15 @@
 This diagram illustrates the end-to-end flow from business strategy to
 data-driven decisions.
 
+### Architecture Philosophy
+
+- Strategy (TAM → SAM → SOM) defines *what* the business optimizes for
+- Metrics translate strategy into measurable success criteria
+- Data and analytics are designed around decision-driving signals (activation, TTV, risk)
+- Dashboards are scoped by persona to avoid metric overload
+- The decision layer ensures insights lead to concrete product, revenue, and CS actions
+
+
 ```mermaid
 flowchart TD
     A["Business Strategy & Goals
@@ -43,3 +52,4 @@ Retention & Risk"]
 
     H --> I["Insights & Decision Notes
 08_insights"]
+
