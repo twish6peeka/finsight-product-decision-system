@@ -110,7 +110,7 @@ FinSight models a complete SaaS analytics and decision pipeline that:
 ---
 
 ## Repository Structure
-
+                
 ```plaintext
 01_business_overview.md       # Strategic goals & ICP
 02_metrics_framework/         # North Star & Input/Output metrics
@@ -120,16 +120,16 @@ FinSight models a complete SaaS analytics and decision pipeline that:
 06_dashboards/                # Visualization logic & screenshots
 07_decisions_and_execution.md # Actionable business playbooks
 08_insights.md                # Turnaround simulation & findings
-README.md                     # Project overview                  
-
+README.md                     # Project overview
 
 ---
 
-## How to use this project
+How to use this project
+Weekly executive review: Portfolio health and revenue risk monitoring
 
-- **Weekly executive review:** Portfolio health and revenue risk monitoring
-- **Product sprint planning:** Activation bottleneck diagnosis
-- **CS risk review:** Proactive churn prevention and outreach prioritization
+Product sprint planning: Activation bottleneck diagnosis
+
+CS risk review: Proactive churn prevention and outreach prioritization
 
 ---
 
