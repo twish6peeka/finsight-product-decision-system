@@ -88,15 +88,15 @@ Each dashboard is intentionally scoped to avoid metric overload and support a sp
 ---
 
 ## Repository structure
-| 01_business_overview.md       |   # Business model, ICP, goals |         
-| 02_metrics_framework/         |    # North Star & KPI definitions |
-| 03_data_model.sql             |   # Star schema & table design |
-| 04_data_generation.py         |    # Synthetic SaaS data generation (Python) |
-| 05_sql_*.sql                  |     # Analytics queries (activation, churn, retention, revenue) |
-| 06_dashboards                 |   # Screenshots of the dashboard |
-| 07_decisions_and_execution.md |  # Decision framework |
-| 08_insights/                  | # Decision simulations & insights |
-| README.md                     |                            |
+* 01_business_overview.md                
+* 02_metrics_framework/        
+* 03_data_model.sql            
+* 04_data_generation.py        
+* 05_sql_*.sql                 
+* 06_dashboards                 
+* 07_decisions_and_execution.md
+* 08_decision_insights.md                 
+* README.md                    
 
 
 ---
