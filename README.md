@@ -136,7 +136,9 @@ FinSight models a complete SaaS analytics and decision pipeline that:
 06_dashboards/                # Visualization logic & screenshots
 07_decisions_and_execution.md # Actionable business playbooks
 08_insights.md                # Turnaround simulation & findings
+09_architecture.md            # End-to-end technical and decision architecture
 README.md                     # Project overview
+
 
 
 
