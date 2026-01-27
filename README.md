@@ -1,102 +1,102 @@
-# FinSight-product-decision-system
-End-to-end product strategy, analytics, and decision framework for a B2B SaaS Product
+# FinSight — Product Decision System for a B2B SaaS
 
-## Strategic Foundation
-
-To ensure the data remained grounded in reality, the product's growth model was built on a **bottom-up market sizing approach**:
-
-- Market sizing: TAM → SAM → SOM  
-- Metrics and decisions are aligned with realistic business potential  
-- Revenue, adoption, and churn outcomes simulate plausible SaaS dynamics  
+An end-to-end product analytics and decision framework that models how leadership teams **actually run a SaaS business using data**.
 
 ---
 
-## Why this project exists
+## Why This Project Exists
 
-Over the last ~2 years working across analytics, operations, and product-adjacent roles, I noticed a recurring gap: most dashboards answer *what happened*, but very few help teams decide *what to do next*.
+Over the last ~2 years working across analytics, operations, and product-adjacent roles, I noticed a recurring gap:
 
-Metrics like MRR, ARR, churn, retention, and activation are often tracked in isolation. In reality, these metrics are deeply connected through **product usage, customer behavior, and business strategy**.
+> Most dashboards explain what happened.  
+> Very few help teams decide what to do next.
 
-This project was built to simulate how leadership and product teams actually run a SaaS business using data — by connecting **product activation → retention → revenue → churn risk** into a single decision system.
+Metrics like MRR, churn, retention, and activation are often tracked in isolation.  
+In reality, they are deeply connected through product behavior, customer value realization, and business strategy.
+
+This project was built to simulate a **real-world SaaS decision system**, not just a reporting layer.
 
 ---
 
 ## Business Context
 
-- **Product:** Hypothetical B2B SaaS product (Analytics / HealthTech / HR Tech)  
-- **ICP:** Mid-to-large enterprises in SaaS, Retail, Healthcare, Manufacturing  
-- **Revenue Model:** Subscription-based (Free, Standard, Premium tiers)  
-- **Business Goals:**  
-  - Drive adoption and retention  
-  - Minimize churn and revenue risk  
-  - Prioritize high-value interventions based on data  
+- **Product:** Hypothetical B2B SaaS (Analytics / HealthTech / HR Tech)
+- **ICP:** SMBs and mid-market businesses across SaaS, Retail, Healthcare, Manufacturing
+- **Revenue Model:** Subscription-based (Free, Standard, Premium)
+- **Primary Goals:**
+  - Improve activation and retention quality
+  - Reduce churn and revenue risk
+  - Enable proactive, data-driven decision-making
 
 ---
 
 ## Metrics Philosophy
 
-Metrics are designed to connect **activation → retention → long-term value**, enabling decision-making, not just reporting. Key highlights:
+Metrics are designed to connect **activation → retention → long-term value**, enabling action rather than vanity reporting.
 
-- **North Star Metric:** Retained Activated Businesses  
-- **Activation & Retention Metrics:** Time-to-Value (TTV), Activation Rate, Activation → Retention Rate  
-- **Revenue & Risk Metrics:** At-Risk MRR, Net MRR Churn %, Active Subscriptions, ARPB  
+**Key principles**
+- Leading indicators over lagging outcomes
+- Behavioral metrics over surface-level usage
+- Revenue risk visibility before churn occurs
 
----
-
-## What this system does
-
-This project models a hypothetical B2B SaaS product and builds a complete analytics pipeline that:
-
-* Tracks **activation and time-to-value (TTV)** as leading indicators  
-* Measures **retention quality**, not just user counts  
-* Quantifies **churn and at-risk MRR** before revenue is lost  
-* Separates views for **Executives, Product Managers, and Operations / CS teams**  
-* Enables **decision-making**, not just reporting  
+**North Star Metric**  
+**Retained Activated Businesses**
 
 ---
 
-## Dashboards & decision owners
+## What This System Does
 
-| Dashboard                                | Primary User     | Key Decisions Enabled                                                         |
-| ---------------------------------------- | ---------------- | ---------------------------------------------------------------------------- |
-| **Enterprise Growth & Portfolio Health** | CEO / Leadership | Revenue health, growth sustainability, segment risk, MRR movement             |
-| **Product Health Scorecard**             | Product Manager  | Activation gaps, feature adoption, time-to-value, zombie users                |
-| **Retention & Risk Dashboard**           | CS / Ops         | Churn prevention, at-risk accounts, retention trends, intervention priorities |
+This project models a complete SaaS analytics pipeline that:
 
-Each dashboard is intentionally scoped to avoid metric overlap and support a specific decision-maker.
-
----
-
-## Key insights uncovered
-
-* **Low activation penetration created downstream churn risk** despite stable acquisition  
-* **Time-to-value (TTV)** showed stronger correlation with retention than feature frequency  
-* A small number of segments contributed disproportionately to **at-risk MRR**  
-* Users that activated once but failed to re-engage (“zombies”) represented silent churn  
-* Revenue risk appeared **weeks before actual churn events**  
+- Tracks activation and Time-to-Value as leading indicators
+- Measures retention quality, not just user counts
+- Quantifies churn risk and at-risk MRR before revenue is lost
+- Separates insights by decision owner (Exec, Product, CS)
+- Enables intervention-ready decision-making
 
 ---
 
-## Tech stack & skills demonstrated
+## Dashboards & Decision Owners
 
-* **Python** – Synthetic SaaS data generation with time-aware churn, MRR, ARR, and activation behavior  
-* **SQL** – Funnel analysis, retention cohorts, churn & risk modeling, revenue analytics  
-* **Power BI** – Executive, product, and ops dashboards with KPI-driven storytelling  
-* **GitHub** – Version-controlled analytics pipeline and documentation  
+| Dashboard | Primary User | Decisions Enabled |
+|--------|-------------|------------------|
+| Enterprise Growth & Portfolio Health | CEO / Leadership | Revenue health, growth sustainability, segment-level risk |
+| Product Health Scorecard | Product Manager | Activation gaps, Time-to-Value, value-driven feature adoption |
+| Retention & Risk Dashboard | CS / Operations | Churn prevention, at-risk accounts, intervention prioritization |
 
+Each dashboard is intentionally scoped to avoid metric overload and support a specific decision context.
+
+---
+
+## Key Insights Uncovered
+
+- Low activation penetration created downstream churn and revenue risk despite stable acquisition
+- Time-to-Value showed stronger correlation with retention than raw feature usage
+- A small number of segments contributed disproportionately to at-risk MRR
+- Zombie accounts represented silent churn hidden behind top-line metrics
+- Revenue risk surfaced weeks before actual churn events
+
+---
+
+## Tech Stack & Skills Demonstrated
+
+- **Python:** Time-aware synthetic SaaS data generation (activation, churn, MRR dynamics)
+- **SQL:** Funnel analysis, retention cohorts, churn & revenue modeling
+- **Power BI:** Executive, product, and operations dashboards with KPI-driven storytelling
+- **GitHub:** Version-controlled analytics pipeline and documentation
 
 ---
 
 ## Repository structure
-* 01_business_overview.md        # Business model, ICP, goals
-* 02_metrics_framework/          # North Star & KPI definitions
-* 03_data_model.sql              # Star schema & table design
-* 04_data_generation.py          # Synthetic SaaS data generation (Python)
-* 05_sql_*.sql                   # Analytics queries (activation, churn, retention, revenue)
-* 06_dashboards                  # Screenshots of the dashboard
-* 07_decisions_and_execution.md  # Decision framework
-* 08_insights/                   # Decision simulations & insights
-* README.md
+*| 01_business_overview.md       |   # Business model, ICP, goals |         
+*| 02_metrics_framework/         |    # North Star & KPI definitions |
+*| 03_data_model.sql             |   # Star schema & table design |
+*| 04_data_generation.py         |    # Synthetic SaaS data generation (Python) |
+*| 05_sql_*.sql                  |     # Analytics queries (activation, churn, retention, revenue) |
+*| 06_dashboards                 |   # Screenshots of the dashboard |
+*| 07_decisions_and_execution.md |  # Decision framework |
+*| 08_insights/                  | # Decision simulations & insights |
+*| README.md                     |                            |
 
 
 ---
