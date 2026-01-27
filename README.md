@@ -103,10 +103,9 @@ Each dashboard is intentionally scoped to avoid metric overload and support a sp
 
 ## How to use this project
 
-* Review the business context to understand why metrics were chosen
-* Explore SQL queries to see how activation, churn, and revenue are modeled
-* Use dashboards to simulate real SaaS decisions
-* Refer to /08_insights for example decision narratives
+- **Weekly executive review:** Portfolio health and revenue risk monitoring
+- **Product sprint planning:** Activation bottleneck diagnosis
+- **CS risk review:** Proactive churn prevention and outreach prioritization
 
 ---
 
