@@ -49,6 +49,14 @@ This project intentionally models a **high-risk business environment** to prove 
 - **Zombie Accounts:**  
   67 accounts appear “active” but never use core value features — a silent churn risk invisible in top-line metrics.
 
+### Performance Summary Table
+
+| Metric Category | Status | Value | Operational Response |
+| :--- | :--- | :--- | :--- |
+| **User Activation** | 🔴 Critical | **6.67%** | Audit onboarding; prioritize Time-to-Value (TTV) |
+| **Revenue Health** | ⚠️ Risk | **17.25% Net Churn** | Deploy Premium-tier "Rescue Playbook" for SaaS segment |
+| **Active Base** | 📉 Warning | **67 Zombies** | Trigger automated re-engagement loops for inactive users |
+
 These are not failures of the project.  
 They are proof that the **decision system is working**.
 
