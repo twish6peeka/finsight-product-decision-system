@@ -75,26 +75,6 @@ Metrics are designed to drive action, not vanity reporting.
 > **Retained Activated Businesses**
 
 ---
-graph TD 
-    subgraph "Data Layer"
-        A[04_data_generation.py<br/>Synthetic SaaS Engine] --> B[(03_data_model.sql<br/>PostgreSQL Star Schema)]
-    end
-
-    subgraph "Analytics Layer"
-        B --> C1[05_sql_queries_activation.sql] --> D[Product Health Scorecard]
-        B --> C2[05_sql_queries_revenue.sql] --> E[Executive Dashboard]
-        B --> C3[05_sql_queries_risk.sql] --> F[Retention & Risk Dashboard]
-    end
-
-    subgraph "Intelligence Loop"
-        D & E & F --> G[07_DECISION FRAMEWORK]
-        G --> H[08_INSIGHTS: Strategic Pivots]
-        H --> |Product Iteration / Experiments| ProductBacklog[Product Backlog / Features]
-    end
-
-    style G fill:#f9f,stroke:#333,stroke-width:2px
-    style B fill:#bbf,stroke:#333,stroke-width:2px
- ---
 
 ## What This System Does
 
